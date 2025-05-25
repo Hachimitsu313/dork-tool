@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Dork Generator | ابزار ساخت دورک</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #0d0d0d;
+      color: #00ff9f;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,255,159,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffd5;
+    }
+
+    label {
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      color: #00ff9f;
+      border: 1px solid #00ff9f;
+      border-radius: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #00ff9f;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00d68f;
+    }
+
+    .lang-switch {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🕵️‍♂️ Google Dork Generator | ابزار ساخت دورک</h2>
+
+    <div class="lang-switch">
+      <span onclick="setLang('fa')" style="cursor:pointer;">🇮🇷 فارسی</span>
+      <span onclick="setLang('en')" style="cursor:pointer;">🇺🇸 English</span>
+    </div>
+
+    <label id="label-domain">دامنه یا پسوند:</label>
+    <input type="text" id="domain" placeholder="مثلاً site:.ir یا site:example.com">
+
+    <label id="label-filetype">نوع فایل:</label>
+    <input type="text" id="filetype" placeholder="مثلاً sql, env, php">
+
+    <label id="label-inurl">کلمات در URL:</label>
+    <input type="text" id="inurl" placeholder="مثلاً admin, login">
+
+    <label id="label-intext">کلمات در متن صفحه:</label>
+    <input type="text" id="intext" placeholder="مثلاً DB_PASSWORD">
+
+    <label id="label-intitle">عنوان صفحه:</label>
+    <input type="text" id="intitle" placeholder="مثلاً Index of">
+
+    <button onclick="generateDork()">🔍 ساخت دورک</button>
+
+    <label id="label-output">دورک نهایی:</label>
+    <textarea id="output" readonly></textarea>
+
+    <div class="footer">
+      ساخته‌شده برای hachimitsu | GitHub Pages Friendly
+    </div>
+  </div>
+
+  <script>
+    function generateDork() {
+      let parts = [];
+      let domain = document.getElementById("domain").value.trim();
+      let filetype = document.getElementById("filetype").value.trim();
+      let inurl = document.getElementById("inurl").value.trim();
+      let intext = document.getElementById("intext").value.trim();
+      let intitle = document.getElementById("intitle").value.trim();
+
+      if (domain) parts.push(domain);
+      if (filetype) parts.push("filetype:" + filetype);
+      if (inurl) parts.push("inurl:" + inurl);
+      if (intext) parts.push('intext:"' + intext + '"');
+      if (intitle) parts.push('intitle:"' + intitle + '"');
+
+      document.getElementById("output").value = parts.join(" ");
+    }
+
+    function setLang(lang) {
+      if (lang === 'fa') {
+        document.getElementById("label-domain").textContent = "دامنه یا پسوند:";
+        document.getElementById("label-filetype").textContent = "نوع فایل:";
+        document.getElementById("label-inurl").textContent = "کلمات در URL:";
+        document.getElementById("label-intext").textContent = "کلمات در متن صفحه:";
+        document.getElementById("label-intitle").textContent = "عنوان صفحه:";
+        document.getElementById("label-output").textContent = "دورک نهایی:";
+      } else {
+        document.getElementById("label-domain").textContent = "Domain or TLD:";
+        document.getElementById("label-filetype").textContent = "File Type:";
+        document.getElementById("label-inurl").textContent = "Words in URL:";
+        document.getElementById("label-intext").textContent = "Words in Page:";
+        document.getElementById("label-intitle").textContent = "Page Title:";
+        document.getElementById("label-output").textContent = "Generated Dork:";
+      }
+    }
+  </script>
+</body>
+</html>
